@@ -34,5 +34,7 @@ namespace SchoolManagement_WebAPI.Data
         public DbSet<Course> Courses { get; set; }
 
         public DbSet<Course_Instructor> Course_Instructors { get; set; }
+
+        public DbSet<Department> Department { get; set; }
     }
 }

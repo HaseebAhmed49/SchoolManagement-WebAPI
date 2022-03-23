@@ -41,6 +41,7 @@ namespace SchoolManagement_WebAPI
             services.AddTransient<InstructorsService>();
             services.AddTransient<EnrollmentService>();
             services.AddTransient<CourseServices>();
+            services.AddTransient<DepartmentService>();
 
             services.AddSwaggerGen(c =>
             {

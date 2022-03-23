@@ -15,5 +15,9 @@ namespace SchoolManagement_WebAPI.Data.Models
         public List<Course_Instructor> Course_Instructors { get; set; }
 
         public List<Enrollment> Enrollments { get; set; }
+
+        public int? DepartmentId { get; set; }
+
+        public Department Department { get; set; }
     }
 }
