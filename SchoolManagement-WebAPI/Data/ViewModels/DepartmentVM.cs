@@ -11,4 +11,15 @@ namespace SchoolManagement_WebAPI.Data.Models
 
         public DateTime StartDate { get; set; }
     }
+
+    public class DepartmentWithCoursesVM
+    {
+        public string Name { get; set; }
+
+        public int Budget { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public List<string> CoursesTitle { get; set; }
+    }
 }

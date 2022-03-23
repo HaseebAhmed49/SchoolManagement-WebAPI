@@ -28,5 +28,20 @@ namespace SchoolManagement_WebAPI.Controllers
             _departmentService.AddDepartment(department);
             return Ok();
         }
+
+        [HttpGet("get-department-with-courses-by-id/{id}")]
+        public IActionResult GetDepartmentWithCoursesById(int id)
+        {
+            var _departmentWithCourses = _departmentService.GetDepartmentWithCourses(id);
+            return Ok(_departmentWithCourses);
+        }
+
+        [HttpGet("get-all-department-with-courses")]
+        public IActionResult GetAllDepartmentWithCoursesById()
+        {
+            var _departmentWithCourses = _departmentService.GetAllDepartmentWithCourses();
+            return Ok(_departmentWithCourses);
+        }
+
     }
 }

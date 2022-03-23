@@ -8,6 +8,8 @@ namespace SchoolManagement_WebAPI.Data.ViewModels
         public string Title { get; set; }
 
         public int Credits { get; set; }
+
+        public int DeparmentId { get; set; }
     }
 
     public class CoursewithInstructorVM

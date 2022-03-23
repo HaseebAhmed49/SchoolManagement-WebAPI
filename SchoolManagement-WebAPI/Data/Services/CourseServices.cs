@@ -63,7 +63,7 @@ namespace SchoolManagement_WebAPI.Data.Services
             {
                 _course.Title = course.Title;
                 _course.Credits = course.Credits;
-
+                _course.DepartmentId = course.DeparmentId;
                 _context.SaveChanges();
             }
             return _course;
