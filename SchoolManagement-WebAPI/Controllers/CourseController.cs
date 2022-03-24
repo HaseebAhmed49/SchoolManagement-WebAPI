@@ -24,36 +24,78 @@ namespace SchoolManagement_WebAPI.Controllers
         [HttpPost("add-course")]
         public IActionResult AddCourse([FromBody]CourseVM course)
         {
-            _courseService.AddCourse(course);
-            return Ok();
+            try
+            {
+                if (String.IsNullOrEmpty(course.Title)) return BadRequest("Course Title Can't be empty");
+                if (course.Credits < 3) return BadRequest($"Credit Hours for Course :{course.Title} should be greater than or equal to 3");
+                _courseService.AddCourse(course);
+                return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("get-all-courses-with-instructors")]
         public IActionResult GetAllCoursesWithInstructor()
         {
-            var _coursesWithInstructors = _courseService.GetAllCoursesWithInstructors();
-            return Ok(_coursesWithInstructors);
+            try
+            {
+                var _coursesWithInstructors = _courseService.GetAllCoursesWithInstructors();
+                return (_coursesWithInstructors.Count > 0) ? Ok(_coursesWithInstructors) : BadRequest("No Courses Exists");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("get-courses-with-instructors-by-id/{id}")]
         public IActionResult CoursesWithInstructor(int id)
         {
-            var _coursesWithInstructors = _courseService.GetInstructorById(id);
-            return Ok(_coursesWithInstructors);
+            try
+            {
+                if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
+                var _coursesWithInstructors = _courseService.GetInstructorById(id);
+                return (_coursesWithInstructors != null) ? Ok(_coursesWithInstructors) : BadRequest($"No Course Exists against Id: {id}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpPut("update-course-by-id/{id}")]
         public IActionResult UpdateCourseById(int id,[FromBody]CourseVM course)
         {
-            var _updatedCourse = _courseService.UpdateCourseById(id, course);
-            return Ok(_updatedCourse);
+            try
+            {
+                if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
+                if (String.IsNullOrEmpty(course.Title)) return BadRequest("Course Title Can't be empty");
+                if (course.Credits < 3) return BadRequest($"Credit Hours for Course :{course.Title} should be greater than or equal to 3");
+                var _updatedCourse = _courseService.UpdateCourseById(id, course);
+                return Ok(_updatedCourse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpDelete("delete-course-by-id/{id}")]
         public IActionResult DeleteCourseById(int id)
         {
-            _courseService.DeleteCourseById(id);
-            return Ok();
+            try
+            {
+                if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
+                _courseService.DeleteCourseById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
     }
