@@ -24,27 +24,52 @@ namespace SchoolManagement_WebAPI.Controllers
         [HttpPost("add-student-with-enrollment")]
         public IActionResult AddStudentWithEnrollments([FromBody]StudentVM student)
         {
-            _studentsSevice.AddStudentsWithEnrollments(student);
-            return Ok();
+            try
+            {
+                if (String.IsNullOrEmpty(student.LastName) || String.IsNullOrEmpty(student.FirstMidName)) return BadRequest("First Mid Name or Last Name are not valid");
+                _studentsSevice.AddStudentsWithEnrollments(student);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("get-all-students-with-enrollments")]
         public IActionResult GetAllStudentsWithEnrollments()
         {
-            var allStudents = _studentsSevice.GetAllStudentsWithEnrollments();
-            return Ok(allStudents);
+            try
+            {
+                var allStudents = _studentsSevice.GetAllStudentsWithEnrollments();
+                return (allStudents.Count > 0) ? Ok(allStudents) : BadRequest("No Student Exists");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("get-student-with-enrollment-by-id/{id}")]
         public IActionResult GetStudentById(int id)
         {
-            var student = _studentsSevice.GetStudentById(id);
-            return Ok(student);
+            try
+            {
+                if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
+                var student = _studentsSevice.GetStudentById(id);
+                return (student != null) ? Ok(student) : BadRequest($"No Student exists in DB against Id: {id}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpPut("update-student-by-id/{id}")]
         public IActionResult UpdateStudentById(int id,[FromBody]StudentVM student)
         {
+            if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
+            if (String.IsNullOrEmpty(student.LastName) || String.IsNullOrEmpty(student.FirstMidName)) return BadRequest("First Mid Name or Last Name are not valid");
             var updatedStudent = _studentsSevice.UpdateStudentById(id,student);
             return Ok(updatedStudent);
         }
@@ -52,6 +77,7 @@ namespace SchoolManagement_WebAPI.Controllers
         [HttpDelete("delete-student-by-id/{id}")]
         public IActionResult DeleteStudentById(int id)
         {
+            if (id <= 0) return BadRequest("Id can't be -ve 0r 0");
             _studentsSevice.DeleteStudentById(id);
             return Ok();
         }
