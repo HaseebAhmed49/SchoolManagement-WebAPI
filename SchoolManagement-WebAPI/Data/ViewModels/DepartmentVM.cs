@@ -14,6 +14,7 @@ namespace SchoolManagement_WebAPI.Data.Models
 
     public class DepartmentWithCoursesVM
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public int Budget { get; set; }

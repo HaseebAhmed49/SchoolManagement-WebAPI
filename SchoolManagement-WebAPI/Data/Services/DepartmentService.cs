@@ -30,6 +30,7 @@ namespace SchoolManagement_WebAPI.Data.Services
         {
             var _departmentwithCourses = _context.Department.Where(d => d.Id == id).Select(department => new DepartmentWithCoursesVM()
             {
+                Id = department.Id,
                 Name = department.Name,
                 Budget = department.Budget,
                 StartDate = department.StartDate,
@@ -48,6 +49,7 @@ namespace SchoolManagement_WebAPI.Data.Services
                 {
                     var _department = _context.Department.Where(d => d.Id == department.Id).Select(department => new DepartmentWithCoursesVM()
                     {
+                        Id = department.Id,
                         Name = department.Name,
                         Budget = department.Budget,
                         StartDate = department.StartDate,
@@ -57,6 +59,28 @@ namespace SchoolManagement_WebAPI.Data.Services
                 }
             }
             return departmentsWithCoursesVMs;
+        }
+
+        public Department UpdateDepartmentById(int id,DepartmentVM department)
+        {
+            var _department = _context.Department.FirstOrDefault(d => d.Id == id);
+            if(_department != null)
+            {
+                _department.Name = department.Name;
+                _department.Budget = department.Budget;
+                _context.SaveChanges();
+            }
+            return _department;
+        }
+
+        public void DeleteDepartmentById(int id)
+        {
+            var _department = _context.Department.FirstOrDefault(d => d.Id == id);
+            if (_department != null)
+            {
+                _context.Department.Remove(_department);
+                _context.SaveChanges();
+            }
         }
     }
 }
