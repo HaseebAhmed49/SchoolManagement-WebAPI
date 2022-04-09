@@ -43,6 +43,12 @@ namespace SchoolManagement_WebAPI
             services.AddTransient<CourseServices>();
             services.AddTransient<DepartmentService>();
 
+            services.AddCors(a => a.AddDefaultPolicy(opt => {
+                opt.AllowAnyOrigin();
+                opt.AllowAnyMethod();
+                opt.AllowAnyHeader();
+                //opt.WithOrigins("abc.com");
+            }));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test Management System", Version = "v1" });
@@ -64,6 +70,7 @@ namespace SchoolManagement_WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

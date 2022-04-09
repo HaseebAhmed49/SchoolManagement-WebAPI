@@ -18,6 +18,8 @@ namespace SchoolManagement_WebAPI.Data.Models
 
         public string FirstMidName { get; set; }
 
+        public DateTime EnrollmentDate { get; set; }
+
         public List<string> CourseTitles { get; set; }
     }
 

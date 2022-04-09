@@ -59,6 +59,7 @@ namespace SchoolManagement_WebAPI.Data.Services
                     {
                         LastName = student.LastName,
                         FirstMidName = student.FirstMidName,
+                        EnrollmentDate = student.EnrollmentDate,
                         CourseTitles = student.Enrollments.Where(n => n.StudentId == student.Id).Select(i => i.Course.Title).ToList()
                         //_context.Courses.Select(ct => ct.Title).ToList()
                     }).FirstOrDefault();
