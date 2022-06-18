@@ -82,5 +82,16 @@ namespace SchoolManagement_WebAPI.Data.Services
                 _context.SaveChanges();
             }
         }
+
+        public List<DepartmentVM> GetAllDepartments()
+        {
+            var _departments = _context.Department.Select(department => new DepartmentVM()
+            {
+                Name = department.Name,
+                Budget = department.Budget,
+                StartDate = department.StartDate
+            }).ToList();
+            return _departments;
+        }
     }
 }

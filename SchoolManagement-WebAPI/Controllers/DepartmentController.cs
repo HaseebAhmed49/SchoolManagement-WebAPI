@@ -67,6 +67,21 @@ namespace SchoolManagement_WebAPI.Controllers
             }
         }
 
+        [HttpGet("get-all-departments")]
+        public IActionResult GetAllDepartments()
+        {
+            try
+            {
+                var _departments = _departmentService.GetAllDepartments();
+                return (_departments.Count > 0) ? Ok(_departments) : BadRequest("No Department Exists");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+
         [HttpPut("update-department-by-id/{id}")]
         public IActionResult UpdateDepartmentById(int id,[FromBody]DepartmentVM department)
         {

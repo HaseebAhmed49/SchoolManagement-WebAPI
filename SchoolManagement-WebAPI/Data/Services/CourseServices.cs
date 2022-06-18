@@ -20,6 +20,7 @@ namespace SchoolManagement_WebAPI.Data.Services
             {
                 Title = course.Title,
                 Credits = course.Credits,
+                DepartmentId = course.DeparmentId
             };
             _context.Courses.Add(_course);
             _context.SaveChanges();
