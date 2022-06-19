@@ -14,6 +14,8 @@ namespace SchoolManagement_WebAPI.Data.ViewModels
 
     public class CoursewithInstructorVM
     {
+        public int id { get; set; }
+
         public string Title { get; set; }
 
         public int Credits { get; set; }

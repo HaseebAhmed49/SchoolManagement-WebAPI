@@ -36,6 +36,7 @@ namespace SchoolManagement_WebAPI.Data.Services
                 {
                     var _CourseWithinstructor = _context.Courses.Where(c => c.Id == course.Id).Select(course => new CoursewithInstructorVM()
                     {
+                        id = course.Id,
                         Title = course.Title,
                         Credits = course.Credits,
                         InstructorNames = course.Course_Instructors.Select(i => i.Instructor.LastName).ToList()
