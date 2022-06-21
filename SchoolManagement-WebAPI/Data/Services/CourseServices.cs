@@ -47,6 +47,20 @@ namespace SchoolManagement_WebAPI.Data.Services
             return coursewithInstructorVMs;
         }
 
+        public Course GetCourseWithDepartment(int id)
+        {
+            //var _CourseWithDepartment = _context.Courses.Where(c => c.Id == id).Select(course => new CourseVM()
+            //{                
+            //    Title = course.Title,
+            //    Credits = course.Credits,
+            //    DeparmentId = (int)(course.DepartmentId)
+            //}).FirstOrDefault();
+
+            var _CourseWithDepartment = _context.Courses.Where(c => c.Id == id).FirstOrDefault();
+
+            return _CourseWithDepartment;
+        }
+
         public CoursewithInstructorVM GetInstructorById(int id)
         {
             var _CourseWithinstructor = _context.Courses.Where(c => c.Id == id).Select(course => new CoursewithInstructorVM()

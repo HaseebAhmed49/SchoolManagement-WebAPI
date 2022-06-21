@@ -37,6 +37,20 @@ namespace SchoolManagement_WebAPI.Controllers
             }
         }
 
+        [HttpGet("get-courses-with-department-by-id/{id}")]
+        public IActionResult CoursesWithDepartment(int id)
+        {
+            try
+            {
+                var _courseWithDepartment = _courseService.GetCourseWithDepartment(id);
+                return (_courseWithDepartment != null) ? Ok(_courseWithDepartment) : BadRequest("No Courses Exists");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,ex);
+            }
+        }
+
         [HttpGet("get-all-courses-with-instructors")]
         public IActionResult GetAllCoursesWithInstructor()
         {
